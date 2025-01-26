@@ -1,13 +1,13 @@
 const express = require('express');
+const {auth} = require('./Middlewares/auth');
+const app = express();  
 
-const app =express();  
+app.use("/admin",auth );
 
-app.get("/hello",(req,res)=> {
-    res.send("heloooo bkl's");
-})
-app.get("/hello/2",(req,res)=> {
-    res.send("heloooo lause");
-})
-app.listen(3000, ()=>{
-    console.log("running on 3000")
-}  );
+app.get("/admin/getAll", (req, res) => {
+    res.send("all data sent");
+});
+
+app.listen(3000, () => {
+    console.log("running on 3000");
+});
