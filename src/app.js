@@ -1,5 +1,5 @@
 const express = require('express');
-const { auth } = require('./Middlewares/auth');
+const  auth = require('./Middlewares/auth');
 const app = express();
 const connectDb = require("./config/database");
 const User = require("./models/user");
@@ -51,10 +51,10 @@ app.post("/login", async (req, res) => {
 
         const validCred = await bcrypt.compare(password, validUser.password);
         if (validCred) {
-            const token = await jwt.sign({_id:validUser._id},  "shrey999");
+            const token = await jwt.sign({_id:validUser._id},  "shrey999", {expiresIn:"0d"});
 
             res.cookie("token", token);
-            res.send("User logged in");
+            res.send("User logged in"); 
         } else {
             res.status(401).send("Invalid credentials");
         }
@@ -63,17 +63,9 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.get("/profile",  async (req,  res) => {
-    try {
-    const {token} = req.cookies;
-    if(!token){
-        return res.status(401).send("invalid token");
-    }
-    const decodedmsg = await jwt.verify(token, "shrey999");
-    const user = await User.findOne({_id: decodedmsg._id});
-    if(!user){
-        return res.status(404).send("user not found");
-    }
+app.get("/profile", auth, async (req,  res) => {
+    try { 
+    const user = req.user;
  res.send("welcome "+ user.firstName);
     } catch (err) {
         res.status(400).send("Error:" + err.message);
@@ -81,22 +73,14 @@ app.get("/profile",  async (req,  res) => {
 });
 
 
-app.get("/feed", async (req, res) => {
+app.get("/feed" , auth, async (req, res) => {
     try {
-        const users = await User.findOne({});
+        const users = await User.find({});
         res.send(users);
     } catch (err) {
-        res.send("something went wrong");
+        res.status(400).send("Error:" + err.message);
     }
-});
-app.get("/feed", async (req, res) => {
-    try {
-        const users = await User.findOneAndDelete({ email: "www.shryas.com" });
-        res.send(users);
-    } catch (err) {
-        res.send("something went wrong");
-    }
-});
+}); 
 
 connectDb().then(() => {
     console.log("db connect");
