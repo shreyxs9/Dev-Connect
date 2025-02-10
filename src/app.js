@@ -11,10 +11,12 @@ app.use(cookieParser());
 const authRouter = require("./Routers/authRouter");
 const requestRoute = require("./Routers/requests");
 const profileRoute = require("./Routers/profile");
+const userRouter = require('./Routers/user');
 
 app.use("/",authRouter);
 app.use("/", requestRoute);
 app.use("/", profileRoute);
+app.use("/", userRouter);
 
 
 app.get("/feed" , auth, async (req, res) => {
