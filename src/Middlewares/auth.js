@@ -12,7 +12,7 @@
          if(!user){
                 throw new Error("User not found");
          }
-        res.send(user);
+        req.user=user;
          next();
      } catch (err) {
          res.status(401).send("Please authenticate");
