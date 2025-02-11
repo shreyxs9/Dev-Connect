@@ -19,14 +19,7 @@ app.use("/", profileRoute);
 app.use("/", userRouter);
 
 
-app.get("/feed" , auth, async (req, res) => {
-    try {
-        const users = await User.find({});
-        res.send(users);
-    } catch (err) {
-        res.status(400).send("Error:" + err.message);
-    }
-}); 
+
 
 connectDb().then(() => {
     console.log("db connect");
