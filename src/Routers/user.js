@@ -44,6 +44,12 @@ userRouter.get("/user/connections" , auth , async (req,res) => {
 userRouter.get("/user/feed", auth, async (req,res)=>{
     try{
         const user = req.user;
+
+        const page = parseInt(req.query.page) || 1;
+        let limit = parseInt(req.query.limit) || 5 ;
+        limit = limit >10 ? 10 :limit;
+        let skip = (page-1)*limit;
+        
         const connectionreq = await ConnectionRequest.find({
          $or :[
             {fromUserId: user._id},
@@ -61,10 +67,11 @@ userRouter.get("/user/feed", auth, async (req,res)=>{
             {_id:{ $nin: Array.from(hideUserFromFeed)} },
             {_id:{ $ne: user._id}   },
     ],
-        }).select("firstName lastName");
+        }).select("firstName lastName").skip(skip).limit(limit);
         res.json({message:"your home page", feed});
     }catch (err) {
     res.status(400).send("Error:" + err.message)
     }
 });
+
 module.exports = userRouter; 
