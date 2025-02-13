@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const connectDb = require("./config/database");
+const connectDb = require("./src/config/database");
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
 
@@ -12,10 +12,10 @@ app.use(cors({
 }));
 
 // Import Routes
-const authRouter = require("./Routers/authRouter");
-const requestRoute = require("./Routers/requests");
-const profileRoute = require("./Routers/profile");
-const userRouter = require('./Routers/user');
+const authRouter = require("./src/Routers/authRouter");
+const requestRoute = require("./src/Routers/requests");
+const profileRoute = require("./src/Routers/profile");
+const userRouter = require('./src/Routers/user');
 
 // Use Routes
 app.use("/", authRouter);
