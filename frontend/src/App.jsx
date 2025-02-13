@@ -1,6 +1,5 @@
 import Body from "./Body";
 import Login from "./Login";
-import NavBar from "./navBar";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Profile from "./Profile";
 function App() {

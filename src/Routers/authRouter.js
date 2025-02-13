@@ -44,8 +44,13 @@ authRouter.post("/login", async (req, res) => {
         if (validCred) {
             const token = await jwt.sign({_id: validUser._id}, "shrey999", { expiresIn: "1d" });
 
-            res.cookie("token", token);
-            return res.send("User logged in");
+            res.cookie("token", token, {
+                httpOnly: true,
+                secure: false, // Change to true in production (with HTTPS)
+                sameSite: "lax"
+            });
+            
+         res.status(200).send("User logged in");
         } else {
             return res.status(401).send("Invalid credentials");
         }
