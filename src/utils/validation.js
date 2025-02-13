@@ -18,7 +18,7 @@ if (!validator.isStrongPassword(newPassword)) {
  }};
 
 const validateProfileEditData = (req) => {
-    const allowedEdits = ['firstName', 'lastName', 'email' , 'age'];
+    const allowedEdits = ['firstName', 'lastName', 'email' , 'age', 'photoUrl'];
     const isAllowedEdits = Object.keys(req.body).every((field) => allowedEdits.includes(field));
     return isAllowedEdits;
 };

@@ -19,6 +19,7 @@ authRouter.post("/signup", async (req, res) => {
             password: hashedPassword,
             email,
             age,
+            photoUrl,
         });
         await user.save();
         res.send("user saved to db");
@@ -50,7 +51,7 @@ authRouter.post("/login", async (req, res) => {
                 sameSite: "lax"
             });
             
-         res.status(200).send("User logged in");
+         res.status(200).send(validUser);
         } else {
             return res.status(401).send("Invalid credentials");
         }
