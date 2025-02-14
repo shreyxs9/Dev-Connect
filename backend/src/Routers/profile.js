@@ -11,7 +11,7 @@ profileRoute.get("/profile", auth, async (req, res) => {
         if (!user || typeof user.firstName !== 'string') {
             throw new Error("User or user.firstName is undefined or not a string");
         }
-        res.send("welcome " + user.firstName);
+        res.json({message:"welcome " + user.firstName, data:user});
     } catch (err) {
         res.status(400).send("Error:" + err.message);
     }
@@ -23,7 +23,6 @@ profileRoute.patch("/profile/edit", auth, async (req, res) => {
             throw new Error("Invalid data");
         }
         const user = req.user;
-        console.log(user);
         Object.keys(req.body).forEach(key => {
             user[key] = req.body[key];
         });

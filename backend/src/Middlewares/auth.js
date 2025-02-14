@@ -5,7 +5,8 @@
      try {
          const token = req.cookies.token;
          if(!token){
-             throw new Error("Token is not present");}
+            return res.status(401).send("Please Login");
+            }
          const decoded = await jwt.verify(token, "shrey999");
          const {_id} = decoded;
          const user = await User.findById(_id);

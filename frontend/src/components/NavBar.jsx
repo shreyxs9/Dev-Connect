@@ -1,12 +1,23 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { removeUser } from '../Redux/userSlice';
 
 const NavBar = () => {
   const user = useSelector((store)=> store.user);
-  return (
-        <div className="navbar bg-base-300 shadow-sm">
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () =>{
+    try {dispatch(removeUser());
+    navigate("/login");} catch (err){
+      console.error(err);
+    }
+  }
+  return ( 
+        <div className="navbar bg-base-300 shadow-sm fixed top-0 z-20">
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl"> 🧑‍💻Dev-Connect</a>
+    <Link to="/" className="btn btn-ghost text-xl"> 🧑‍💻Dev-Connect</Link>
   </div>
   <div className="flex gap-2">
     <div className="dropdown dropdown-end mx-10">
@@ -25,13 +36,13 @@ const NavBar = () => {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li>
-          <a className="justify-between">
+          <Link to="/profile" className="justify-between">
             Profile
             <span className="badge">New</span>
-          </a>
+          </Link>
         </li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li onClick={handleLogout}><a>Logout</a></li>
       </ul>
     </div>
   </div>

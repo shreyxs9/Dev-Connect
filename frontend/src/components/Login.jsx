@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {addUser} from "../Redux/userSlice";
+import {addUser} from "../Redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../utils/constant";
+import { BASE_URL } from '../utils/constant.js'
 const Login = () => {
   const [email, setEmailId] = useState("shreyas@gmail.com");
   const [password, setPassword] = useState("shreyaskumaR999#");
@@ -27,8 +27,7 @@ const Login = () => {
       dispatch(addUser(res.data));
       navigate("/");
     } catch (err) {
-      setError(err.message);
-      console.error("Login Error:", err.response);
+      setError(err?.response?.data || "Something went wrong");
     } finally {
       setLoading(false);
     }

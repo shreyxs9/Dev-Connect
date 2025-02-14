@@ -60,14 +60,14 @@ userRouter.get("/user/feed", auth, async (req,res)=>{
         connectionreq.forEach((req)=>{
             hideUserFromFeed.add(req.fromUserId.toString());
             hideUserFromFeed.add(req.toUserId.toString());
-        });
+         });
 
         const feed = await User.find({
             $and:[
             {_id:{ $nin: Array.from(hideUserFromFeed)} },
             {_id:{ $ne: user._id}   },
     ],
-        }).select("firstName lastName").skip(skip).limit(limit);
+        }).select("firstName lastName photoUrl age gender skills").skip(skip).limit(limit);
         res.json({message:"your home page", feed});
     }catch (err) {
     res.status(400).send("Error:" + err.message)

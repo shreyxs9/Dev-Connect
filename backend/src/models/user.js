@@ -30,6 +30,12 @@ const userSchema = new mongoose.Schema({
     age: {
         type: Number,
     },
+    skills: {
+        type: Array,
+    },
+    Gender: {
+        type: String,
+    },
     photoUrl: {
         type: String,
         default:"https://as2.ftcdn.net/jpg/05/89/93/27/1000_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.webp",
