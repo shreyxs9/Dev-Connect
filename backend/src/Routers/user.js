@@ -63,13 +63,13 @@ userRouter.get("/user/feed", auth, async (req,res)=>{
             hideUserFromFeed.add(req.toUserId.toString());
          });
 
-        const feed = await User.find({
+        const data = await User.find({
             $and:[
             {_id:{ $nin: Array.from(hideUserFromFeed)} },
             {_id:{ $ne: user._id}   },
     ],
         }).select("firstName lastName photoUrl age gender skills").skip(skip).limit(limit);
-        res.json({message:"your home page", feed});
+        res.json({message:"your home page", data: data});
     }catch (err) {
     res.status(400).send("Error:" + err.message)
     }

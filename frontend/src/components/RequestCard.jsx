@@ -8,9 +8,8 @@ const RequestCard = ({requests}) => {
   const dispatch= useDispatch();
 
   if (!Array.isArray(requests) || requests.length === 0) {
-    return <div>No Requests available</div>;
+    return <div className='flex justify-center mt-20'>No Requests available</div>;
   } 
-  console.log(requests);
   const reviewReq= async (status, _id) =>{
     try {
       const res= await axios.post(BASE_URL +"/request/review/"+status+"/"+_id ,{},{
