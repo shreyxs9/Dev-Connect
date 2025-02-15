@@ -22,7 +22,7 @@ const EditProfile = ({ userData }) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    setSuccess(false);
+    setSuccess(true);
 
     try {
       const res = await axios.patch(`${BASE_URL}/profile/edit`, {
@@ -47,15 +47,14 @@ const EditProfile = ({ userData }) => {
   return (
     <>
       {success && (
-        <div className="toast toast-top toast-center z-29">
+        <div className="toast toast-top toast-center z-[1000] mt-10">
           <div className="alert alert-success">
             <span>Profile updated successfully.</span>
           </div>
         </div>
       )}
-      <div className="md:flex md:justify-center w-full h-[125vh] md:h-full">
         <Usercard user={{ firstName, lastName, age, gender, skills, photoUrl }} />
-        <div className="flex justify-center items-center mt-5 md:mt-0 ml-0 md:ml-20 min-h-screen/2 md:w-[50vh]">
+        <div className="flex justify-center items-center mt-5 md:mt-0 ml-0  min-h-screen/2 md:w-[50vh]">
           <form
             onSubmit={handleEdit}
             className="w-[77.5%] md:w-full max-w-sm md:max-w-md p-4 md:p-8 bg-white rounded-lg shadow-md"
@@ -158,7 +157,6 @@ const EditProfile = ({ userData }) => {
             </button>
           </form>
         </div>
-      </div>
     </>
   );
 };

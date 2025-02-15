@@ -26,15 +26,16 @@ userRouter.get("/user/connections" , auth , async (req,res) => {
                 {toUserId: user._id, status: "accepted"},
                 {fromUserId: user._id, status: "accepted"}
             ],
-        }).populate("fromUserId",["firstName", "lastName"]).populate("toUserId",["firstName", "lastName"]);
+        }).populate("fromUserId",["firstName", "lastName", "age", "skills","gender", "photoUrl"]).populate("toUserId",["firstName", "lastName", "age", "skills","gender","photoUrl"]);
 
-        const data = connectionrequest.map((key)=> {
-            if(key.fromUserId._id.toString() === user._id.toString()) {
-              return  key.toUserId
+        const data = connectionrequest.map((key) => {
+            if (key.fromUserId._id.toString() === user._id.toString()) {
+                return { _id: key.toUserId._id, ...key.toUserId._doc };
             } else {
-                return key.fromUserId;
+                return { _id: key.fromUserId._id, ...key.fromUserId._doc };
             }
-       });
+        });
+        
         res.json({message:"connections found", data});
     } catch(err) {
         res.status(400).send("Error:" + err.message );
