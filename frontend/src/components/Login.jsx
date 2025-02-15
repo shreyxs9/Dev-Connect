@@ -37,7 +37,7 @@ const Login = () => {
     <div className="flex justify-center items-center min-h-screen">
       <form
         onSubmit={handleLogin}
-        className="w-full max-w-sm md:max-w-md p-8 bg-white rounded-lg shadow-md"
+        className="w-full max-w-sm md:max-w-md p-8 bg-base-300  rounded-lg shadow-md"
       >
         <div className="mb-6">
           <label htmlFor="email1" className="block text-sm font-medium text-gray-700">

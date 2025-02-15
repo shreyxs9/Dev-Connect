@@ -8,7 +8,7 @@ userRouter.get("/user/requests/received", auth , async (req, res) => {
 try {
 const user = req.user;
 
-const connectionRequests = await ConnectionRequest.find({toUserId: user._id, status: "interested"}).populate("fromUserId",["firstName", "lastName"]);
+const connectionRequests = await ConnectionRequest.find({toUserId: user._id, status: "interested"}).populate("fromUserId",["firstName", "lastName", "age", "skills","gender","photoUrl"]);
 res.json({message:"connection requests", 
     data: connectionRequests});
 } catch(err) {

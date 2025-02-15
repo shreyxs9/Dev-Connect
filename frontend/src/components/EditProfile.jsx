@@ -54,7 +54,7 @@ const EditProfile = ({ userData }) => {
         </div>
       )}
         <Usercard user={{ firstName, lastName, age, gender, skills, photoUrl }} />
-        <div className="flex justify-center items-center mt-5 md:mt-0 ml-0  min-h-screen/2 md:w-[50vh]">
+        <div className="flex justify-center items-center mt-5 md:mt-0 md:ml-10  min-h-screen/2 md:w-[50vh]">
           <form
             onSubmit={handleEdit}
             className="w-[77.5%] md:w-full max-w-sm md:max-w-md p-4 md:p-8 bg-white rounded-lg shadow-md"
